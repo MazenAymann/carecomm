@@ -92,9 +92,9 @@ class ProductCardWidget extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 4,
-                  spreadRadius: 1,
+                  color: Colors.greenAccent,
+                  blurRadius: 0.5,
+                  spreadRadius: 0.2,
                 ),
               ],
             ),

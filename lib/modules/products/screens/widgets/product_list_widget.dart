@@ -1,3 +1,4 @@
+import 'package:carecomm/modules/products/screens/widgets/header_product_list_widget.dart';
 import 'package:carecomm/modules/products/screens/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,28 +29,41 @@ class ProductListWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: paddingHorizontal, vertical: paddingVertical),
             child: SingleChildScrollView(
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: state.products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenSize.width > 600 ? 3 : 2,
-                  crossAxisSpacing: gridSpacing,
-                  mainAxisSpacing: gridSpacing,
-                  childAspectRatio: childAspectRatio,
-                ),
-                itemBuilder: (context, index) {
-                  final product = state.products[index];
-
-                  return Padding(
-                    padding: EdgeInsets.only(top: paddingTop),
-                    child: ProductCardWidget(
-                      imageLink: product.image ?? '',
-                      title: product.title ?? '',
-                      price: product.price.toString(),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  HeaderProductListWidget(
+                    productsNumber: state.products.length,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.products.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: screenSize.width > 600 ? 3 : 2,
+                      crossAxisSpacing: gridSpacing,
+                      mainAxisSpacing: gridSpacing,
+                      childAspectRatio: childAspectRatio,
                     ),
-                  );
-                },
+                    itemBuilder: (context, index) {
+                      final product = state.products[index];
+
+                      return Padding(
+                        padding: EdgeInsets.only(top: paddingTop),
+                        child: ProductCardWidget(
+                          imageLink: product.image ?? '',
+                          title: product.title ?? '',
+                          price: product.price.toString(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           );
