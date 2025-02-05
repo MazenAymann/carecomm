@@ -8,7 +8,7 @@ class ProductsRepository implements IRepository {
 
   ProductsRepository({required this.apiProvider});
 
-  Future<ProductModel> getProducts() => apiProvider.getProducts();
+  Future<List<ProductModel>> getProducts() => apiProvider.getProducts();
 
   @override
   void dispose() => apiProvider.cancelAnyRunningRequest();

@@ -10,12 +10,13 @@ class ProductsRemoteDataProvider implements IRemoteDataProvider {
 
   ProductsRemoteDataProvider({required this.dio});
 
-  Future<ProductModel> getProducts() async {
+  Future<List<ProductModel>> getProducts() async {
     final response = await dio.get(
       apis.products,
       cancelToken: _cancelToken,
     );
-    return ProductModel.fromJson(response.data);
+    List<dynamic> jsonList = response.data;
+    return jsonList.map((json) => ProductModel.fromJson(json)).toList();
   }
 
   @override
