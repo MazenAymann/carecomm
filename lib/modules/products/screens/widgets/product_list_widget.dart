@@ -59,6 +59,8 @@ class ProductListWidget extends StatelessWidget {
                           imageLink: product.image ?? '',
                           title: product.title ?? '',
                           price: product.price.toString(),
+                          category: product.category ?? '',
+                          description: product.description ?? '',
                         ),
                       );
                     },
