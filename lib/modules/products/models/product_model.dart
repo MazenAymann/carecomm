@@ -1,5 +1,5 @@
 class ProductModel {
-  int? id;
+  String? id;
   String? title;
   dynamic price;
   String? description;
@@ -17,7 +17,7 @@ class ProductModel {
       this.rating});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     title = json['title'];
     price = json['price'];
     description = json['description'];

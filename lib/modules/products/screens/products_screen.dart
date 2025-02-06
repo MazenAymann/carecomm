@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/helpers/di.dart';
 import '../../bloc/products_bloc.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -14,20 +15,8 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xf4ffffff),
-      body: BlocProvider(
-        create: (context) => ProductsBloc(
-          productsRepository: ProductsRepository(
-            apiProvider: ProductsRemoteDataProvider(
-              dio: Dio(),
-            ),
-          ),
-        )..add(
-            FetchProducts(),
-          ),
-        child: const SafeArea(child: ProductListWidget()),
-      ),
-    );
+    return const Scaffold(
+        backgroundColor: Color(0xf4ffffff),
+        body: SafeArea(child: ProductListWidget()));
   }
 }

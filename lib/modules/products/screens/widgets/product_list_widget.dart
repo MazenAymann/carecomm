@@ -56,6 +56,7 @@ class ProductListWidget extends StatelessWidget {
                       return Padding(
                         padding: EdgeInsets.only(top: paddingTop),
                         child: ProductCardWidget(
+                          productId: product.id?.toString() ?? '',
                           imageLink: product.image ?? '',
                           title: product.title ?? '',
                           price: product.price.toString(),
