@@ -24,70 +24,82 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
 
-    return Container(
-      height: screenSize.height * 0.8,
-      padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20), // Add a border radius here
-        ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: 50,
-            height: 4,
-            decoration: BoxDecoration(
-                color: Colors.grey, borderRadius: BorderRadius.circular(20)),
-          ),
-          const SizedBox(height: 10),
-          Image(
-            image: CachedNetworkImageProvider(imageLink),
-            width: screenSize.width * 0.5,
-            height: screenSize.height * 0.2,
-          ),
-          const SizedBox(height: 30),
-          Text(
-            '$title - $category',
-            style: GoogleFonts.cairo(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return Wrap(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
             ),
           ),
-          const SizedBox(height: 20),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Description',
-              style: GoogleFonts.cairo(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Important: Makes the height dynamic
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 50,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 10),
+              Center(
+                child: Image(
+                  image: CachedNetworkImageProvider(imageLink),
+                  width: screenSize.width * 0.5,
+                  height: screenSize.height * 0.2,
+                ),
+              ),
+              const SizedBox(height: 30),
+              Text(
+                '$title - $category',
+                style: GoogleFonts.cairo(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Description',
+                style: GoogleFonts.cairo(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                description,
+                style: GoogleFonts.cairo(
+                  color: colors.careCommGrey,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  '\$$price',
+                  style: GoogleFonts.cairo(
+                    color: colors.careCommGrey,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-          const SizedBox(height: 5),
-          Text(
-            description,
-            style: GoogleFonts.cairo(
-              color: colors.careCommGrey,
-              fontSize: 16,
-            ),
-          ),
-          const Spacer(),
-          Text(
-            '\$$price',
-            style: GoogleFonts.cairo(
-              color: colors.careCommGrey,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
