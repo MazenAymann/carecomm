@@ -6,16 +6,14 @@ import 'package:flutter/material.dart';
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case "/":
+        return MaterialPageRoute(builder: (_) => const ProductsScreen());
       case ProductsScreen.routeName:
         return MaterialPageRoute(builder: (_) => const ProductsScreen());
 
       case FavoritesScreen.routeName:
-        {
-          final arguments = settings.arguments as List<ProductModel>;
+        return MaterialPageRoute(builder: (_) => const FavoritesScreen());
 
-          return MaterialPageRoute(
-              builder: (_) => FavoritesScreen(favoriteProducts: arguments));
-        }
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

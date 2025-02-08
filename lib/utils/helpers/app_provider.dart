@@ -16,9 +16,9 @@ class AppProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<ProductsBloc>()..add(FetchProductsEvent()),
-        ),
+        BlocProvider<ProductsBloc>(
+            create: (context) =>
+                getIt<ProductsBloc>()..add(FetchProductsEvent())),
       ],
       child: MaterialApp(
         title: 'CareComm',

@@ -20,26 +20,22 @@ class ProductListWidget extends StatelessWidget {
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (context, state) {
         if (state is ProductsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
-        if (state is ProductsFetched) {
-          return Padding(
+        if (state is ProductsFetched && state.products.isNotEmpty) {
+          return Container(
+            color: Colors.white,
             padding: EdgeInsets.symmetric(
-                horizontal: paddingHorizontal, vertical: paddingVertical),
+              horizontal: paddingHorizontal,
+              vertical: paddingVertical,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   HeaderProductListWidget(
-                    productsNumber: state.products.length,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                      productsNumber: state.products.length),
+                  const SizedBox(height: 30),
                   GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -71,7 +67,7 @@ class ProductListWidget extends StatelessWidget {
             ),
           );
         }
-        return const SizedBox.shrink();
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

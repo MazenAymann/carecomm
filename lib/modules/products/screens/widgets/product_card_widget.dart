@@ -3,7 +3,6 @@ import 'package:carecomm/modules/products/screens/widgets/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../constants/colors.dart' as colors;
 import '../../../bloc/products_bloc.dart';
 
@@ -107,33 +106,49 @@ class ProductCardWidget extends StatelessWidget {
           Positioned(
             top: -cardHeight * 0.065,
             right: cardWidth * 0.1,
-            child: InkWell(
-              onTap: () {
-                BlocProvider.of<ProductsBloc>(context)
-                    .addFavoriteProducts(productId: productId);
-              },
-              child: Container(
-                width: cardWidth * 0.18,
-                height: cardWidth * 0.18,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.greenAccent,
-                      blurRadius: 0.5,
-                      spreadRadius: 0.2,
+            child: BlocBuilder<ProductsBloc, ProductsState>(
+              builder: (context, state) {
+                final isFavorite = BlocProvider.of<ProductsBloc>(context)
+                    .favoriteProductsList
+                    .any((product) => product.id == productId);
+
+                return GestureDetector(
+                  onTap: () {
+                    final bloc = BlocProvider.of<ProductsBloc>(context);
+                    if (isFavorite) {
+                      bloc.add(RemoveFavoriteEvent(productId));
+                    } else {
+                      bloc.add(AddFavoriteEvent(productId));
+                    }
+
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      bloc.add(FetchProductsEvent());
+                    });
+                  },
+                  child: Container(
+                    width: cardWidth * 0.18,
+                    height: cardWidth * 0.18,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: isFavorite ? Colors.red : Colors.greenAccent,
+                          blurRadius: 0.5,
+                          spreadRadius: 0.2,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.add,
-                    size: cardWidth * 0.12,
-                    color: Colors.green,
+                    child: Center(
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        size: cardWidth * 0.12,
+                        color: isFavorite ? Colors.red : Colors.green,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],

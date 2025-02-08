@@ -25,4 +25,14 @@ class FavoriteProductsService {
     favoriteProducts.remove(productId);
     await prefs.setStringList(_favoriteProductsKey, favoriteProducts);
   }
+
+  Future<void> clearFavoriteProducts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_favoriteProductsKey);
+  }
+
+  Future<void> dispose() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_favoriteProductsKey);
+  }
 }
